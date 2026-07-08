@@ -1,35 +1,41 @@
 FROM node:20-slim
 
-# 1. Instalar Chromium y dependencias necesarias manualmente
+# Instalar Chromium y dependencias para Railway
 RUN apt-get update && apt-get install -y \
     chromium \
-    libnss3 \
+    fonts-liberation \
     libatk-bridge2.0-0 \
-    libx11-xcb1 \
     libcups2 \
     libdrm2 \
+    libgbm1 \
+    libgtk-3-0 \
+    libnspr4 \
+    libnss3 \
+    libx11-xcb1 \
+    libxcb1 \
     libxcomposite1 \
     libxdamage1 \
     libxrandr2 \
-    libgbm1 \
     libasound2 \
+    libxshmfence1 \
     --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
-# 2. Configurar variables para que el bot sepa dónde está el navegador
+# Variables para Railway
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
 ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium
+ENV NODE_ENV=production
 
 WORKDIR /usr/src/app
 
-# 3. Instalar dependencias del bot
+# Copiar e instalar dependencias
 COPY package*.json ./
-RUN npm install
+RUN npm install --production
 
 COPY . .
 
-# EXPOSICIÓN DEL PUERTO PARA RENDER (NUEVO)
+# Railway necesita un puerto expuesto
 EXPOSE 3000
 
-# 4. Arrancar el bot
+# Comando de inicio
 CMD [ "npm", "start" ]
