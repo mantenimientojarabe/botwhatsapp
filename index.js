@@ -76,7 +76,6 @@ const client = new Client({
     }),
     puppeteer: {
         headless: "new",
-        executablePath: process.env.PUPPETEER_EXECUTABLE_PATH, 
         args: [
             '--no-sandbox',
             '--disable-setuid-sandbox',
@@ -84,8 +83,7 @@ const client = new Client({
             '--disable-accelerated-2d-canvas',
             '--no-first-run',
             '--no-zygote',
-            '--disable-gpu',
-            '--disable-features=DBus' 
+            '--disable-gpu'
         ]
     },
     webVersionCache: {
