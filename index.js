@@ -81,9 +81,12 @@ const client = new Client({
             '--disable-setuid-sandbox',
             '--disable-dev-shm-usage',
             '--disable-accelerated-2d-canvas',
+            '--disable-gpu',
+            '--disable-dbus',  // ⭐ CRUCIAL PARA RAILWAY
             '--no-first-run',
             '--no-zygote',
-            '--disable-gpu'
+            '--disable-features=site-per-process',
+            '--disable-blink-features=AutomationControlled'
         ]
     },
     webVersionCache: {
