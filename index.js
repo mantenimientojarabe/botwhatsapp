@@ -76,7 +76,6 @@ const client = new Client({
     }),
     puppeteer: {
         headless: "new",
-        executablePath: process.env.PUPPETEER_EXECUTABLE_PATH, // <--- CONECTA CON EL DOCKERFILE
         args: [
             '--no-sandbox',
             '--disable-setuid-sandbox',
@@ -84,9 +83,7 @@ const client = new Client({
             '--disable-accelerated-2d-canvas',
             '--no-first-run',
             '--no-zygote',
-            '--single-process', // <--- AHORRA MEMORIA EN RENDER/RAILWAY
-            '--disable-gpu',
-            '--disable-features=DBus' // <--- APAGA EL ERROR CRÍTICO DE DBUS
+            '--disable-gpu'
         ]
     },
     webVersionCache: {
@@ -94,6 +91,7 @@ const client = new Client({
         remotePath: "https://raw.githubusercontent.com/wppconnect-team/wa-version/main/html/2.2412.54.html"
     }
 });
+
 function crearCarpetas() {
     const carpetas = [
         path.join(__dirname, 'whatsapp-session'),
